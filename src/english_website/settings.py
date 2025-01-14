@@ -31,7 +31,7 @@ SECRET_KEY = 'django-insecure-7y^3u&$yspikj)+u)u#vp5#=f=a@w9q1$qjkjas9=#cbf4_%k8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -94,7 +94,7 @@ WSGI_APPLICATION = 'english_website.wsgi.application'
 DATABASES = {  
     'default': {  # دیتابیس اصلی
         'ENGINE': 'django.db.backends.sqlite3',  
-        'NAME': BASE_DIR / 'db.sqlite3',  
+        'NAME': BASE_DIR / 'db23.sqlite3',
     },  
     'mysql': {  # دیتابیس دوم
         'ENGINE': 'django.db.backends.mysql',  

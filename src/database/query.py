@@ -10,8 +10,9 @@ def create_db_connection(DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME):
             password=DB_PASSWORD,
             database=DB_NAME
         )
+
         print("Connection to MySQL DB successful")
-    except mysql.connector.Error as e:
+    except mysql.Error as e:
         print(f"The error '{e}' occurred")
     return mydb
 

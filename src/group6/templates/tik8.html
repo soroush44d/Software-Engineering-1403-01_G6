@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tick 8 Vocabulary Tracker</title>
+  <!-- Bootstrap CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  >
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .day-box {
+      border: 2px solid #6c757d;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 15px;
+      background-color: #ffffff;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .day-title {
+      font-weight: bold;
+      font-size: 18px;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .circle {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: inline-block;
+      margin: 5px;
+      line-height: 30px;
+      text-align: center;
+      font-size: 14px;
+      color: white;
+    }
+
+    .circle.red {
+      background-color: #dc3545;
+    }
+
+    .circle.green {
+      background-color: #28a745;
+    }
+
+    .start-button {
+      display: block;
+      width: 100%;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container py-4">
+    <h1 class="text-center mb-4">تیک 8 </h1>
+
+    <!-- Days -->
+    <div class="row">
+      <!-- Template for Days -->
+      <div class="col-12">
+        <div class="day-box">
+          <div class="day-title">روز 1</div>
+          <div class="circles">
+            <!-- Circles for Day 1 -->
+          </div>
+          <button class="btn btn-primary start-button" onclick="startPractice(1)">Start Practice</button>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="day-box">
+          <div class="day-title">روز 2</div>
+          <div class="circles">
+            <!-- Circles for Day 2 -->
+          </div>
+          <button class="btn btn-primary start-button" onclick="startPractice(2)">Start Practice</button>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="day-box">
+          <div class="day-title">روز 3</div>
+          <div class="circles">
+            <!-- Circles for Day 3 -->
+          </div>
+          <button class="btn btn-primary start-button" onclick="startPractice(3)">Start Practice</button>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="day-box">
+          <div class="day-title">روز 4</div>
+          <div class="circles">
+            <!-- Circles for Day 4 -->
+          </div>
+          <button class="btn btn-primary start-button" onclick="startPractice(4)">Start Practice</button>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="day-box">
+          <div class="day-title">روز 5</div>
+          <div class="circles">
+            <!-- Circles for Day 5 -->
+          </div>
+          <button class="btn btn-primary start-button" onclick="startPractice(5)">Start Practice</button>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="day-box">
+          <div class="day-title">روز 6</div>
+          <div class="circles">
+            <!-- Circles for Day 6 -->
+          </div>
+          <button class="btn btn-primary start-button" onclick="startPractice(6)">Start Practice</button>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="day-box">
+          <div class="day-title">روز 7</div>
+          <div class="circles">
+            <!-- Circles for Day 7 -->
+          </div>
+          <button class="btn btn-primary start-button" onclick="startPractice(7)">Start Practice</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // Example data for the tracker
+    const tracker = {
+      Day1: Array(20).fill(true), // All remembered
+      Day2: Array(20).fill(false), // All forgotten
+      Day3: Array(20).fill(true),
+      Day4: Array(20).fill(false),
+      Day5: Array(20).fill(true),
+      Day6: Array(20).fill(false),
+      Day7: Array(20).fill(true),
+    };
+
+    const days = Object.keys(tracker);
+    days.forEach((day, dayIndex) => {
+      const circlesContainer = document.querySelectorAll('.day-box')[dayIndex].querySelector('.circles');
+      circlesContainer.innerHTML = ''; // Clear default content
+      tracker[day].forEach((remembered, index) => {
+        const circle = document.createElement('div');
+        circle.classList.add('circle', remembered ? 'green' : 'red');
+        circle.textContent = index + 1;
+        circlesContainer.appendChild(circle);
+      });
+    });
+
+    // Redirect to practice page with day number
+    function startPractice(day) {
+      alert(`Redirecting to practice for Day ${day}`);
+      window.location.href = `LeitnerStart.html?day=${day}`;
+    }
+  </script>
+</body>
+</html>

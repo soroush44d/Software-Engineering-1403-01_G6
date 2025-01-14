@@ -1,0 +1,46 @@
+{% extends 'Main.html' %}
+{% load static %}
+
+{% block header %}
+<link rel="stylesheet" href="{% static 'group6/css/LeitnerStart.css' %}">
+
+{% endblock %}
+
+{% block content %}
+<div class="main">
+    <div class="container py-4">
+    <h1 class="text-center mb-4">Practice Vocabulary</h1>
+
+    <!-- Word Display Box -->
+    <div class="word-box" id="wordBox">
+      Word
+    </div>
+
+    <!-- Show Meaning Button -->
+    <div class="text-center mb-4">
+      <button class="btn btn-primary btn-lg" id="showMeaningButton">Show Meaning</button>
+    </div>
+
+    <!-- Remember/Forgot Buttons -->
+    <div class="btn-group">
+      <button class="btn btn-success btn-lg" id="rememberButton">Remember</button>
+      <button class="btn btn-danger btn-lg" id="forgotButton">Forgot</button>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,104 @@
+{% extends 'Main.html' %}
+{% load static %}
+
+{% block header %}
+    <title>Leitner Box</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .leitner-box {
+            border: 2px solid #6c757d;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+            background-color: #ffffff;
+            text-align: center;
+            width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        h4 {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        p {
+            margin: 0;
+        }
+        .control-panel {
+            margin-top: 20px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="container py-4">
+        <h1 class="text-center mb-4">Leitner Box</h1>
+    
+        <!-- Leitner Boxes -->
+        {% for box_number,count in leitners.items %}
+        <div class="row">
+          <div class="col-12">
+            <div class="leitner-box">
+              <h4>جعبه {{ box_number }}</h4>
+              <p>تعداد لغات: <span id="box{{ box_number }}-count">{{ count }}</span></p>
+            </div>
+
+            {% endfor %}
+
+
+    
+       <!-- Control Panel -->
+        <div class="control-panel text-center mt-4">
+          <div class="dropdown mb-3">
+            <button
+              class="btn btn-secondary dropdown-toggle"
+              type="button"
+              id="boxSelector"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              انتخاب جعبه
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="boxSelector">
+              <li><a class="dropdown-item" href="{% url 'group6:leitnerreview' box=1 %}" >جعبه ۱</a></li>
+              <li><a class="dropdown-item" href="{% url 'group6:leitnerreview' box=2 %}" >جعبه۲</a></li>
+              <li><a class="dropdown-item" href="{% url 'group6:leitnerreview' box=3 %}" >جعبه۳</a></li>
+              <li><a class="dropdown-item" href="{% url 'group6:leitnerreview' box=4 %}" >جعبه۴</a></li>
+              <li><a class="dropdown-item" href="{% url 'group6:leitnerreview' box=5 %}" >جعبه۵</a></li>
+            </ul>
+          </div>
+          <button class="btn btn-primary btn-lg" id="start-button" disabled onclick="startPractice()">شروع مرور</button>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+    <!-- JavaScript -->
+
+    <script>
+        let selectedBox = null;
+
+        // Function to set the selected box
+        function selectBox(event, boxNumber) {
+            event.preventDefault();  // جلوگیری از رفتن به لینک
+
+            selectedBox = boxNumber;
+            document.getElementById("start-button").disabled = false; // Enable the start button
+            alert(`جعبه ${boxNumber} انتخاب شد`);
+        }
+
+        // Function to start practice
+        function startPractice() {
+            if (selectedBox) {
+                window.location.href = `practice.html?box=${selectedBox}`;
+            }
+        }
+    </script>
+
+    <script src="{% static 'group6/js/bootstrap.bundle.min.js' %}"></script>
+
+
+{% endblock %}

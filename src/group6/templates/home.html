@@ -1,0 +1,75 @@
+{% extends 'Main.html' %}
+{% load static %}
+
+
+
+{% block header %}
+    <link rel="stylesheet" href="{% static 'group6/css/main.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="area" >
+            <div class="container">
+                <ul class="circles">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+
+            </div>
+
+            <div class="container my-5">
+                <div class="row g-3 text-center">
+                    <div class="col-md-6 col-xs-12">
+                        <a href="AddList.html" class="btn btn-outline-primary w-100 py-4 text-decoration-none page-link border">
+                            <i class="bi bi-plus-square fs-1"></i> <br>
+                            ایجاد لیست
+                        </a>
+                    </div>
+                    <div class="col-md-6 col-xs-12">
+                        <a href="{% url 'group6:addwords' %}" class="btn btn-outline-success w-100 py-4 text-decoration-none page-link border">
+                            <i class="bi bi-plus-circle fs-1"></i> <br>
+                            افزودن کلمه
+                        </a>
+                    </div>
+                    <div class="col-md-6 col-xs-12">
+                        <a href="delete.html" class="btn btn-outline-danger w-100 py-4 text-decoration-none page-link border">
+                            <i class="bi bi-trash fs-1"></i> <br>
+                            حذف
+                        </a>
+                    </div>
+                    <div class="col-md-6 col-xs-12">
+                        <a href="search.html" class="btn btn-outline-info w-100 py-4 text-decoration-none page-link border">
+                            <i class="bi bi-gear fs-1"></i> <br>
+                            ویرایش
+                        </a>
+                    </div>
+                    <div class="col-md-6 col-xs-12">
+                        <a href="{% url 'group6:showleitner' %}" class="btn btn-outline-warning w-100 py-4 text-decoration-none page-link border">
+                            <i class="bi bi-box fs-1"></i> <br>
+                            جعبه لایتنر
+                        </a>
+                    </div>
+                    <div class="col-md-6 col-xs-12">
+                        <a href="tik8.html" class="btn btn-outline-warning w-100 py-4 text-decoration-none page-link border">
+                            <i class="bi bi-check-circle fs-1"></i> <br>
+                            تیک 8
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+    </div>
+
+{% endblock %}
+{% block js %}
+    <script src="{% static 'group6/js/main.js' %}"></script>
+    <script src="{% static 'group6/js/bootstrap.min.js' %}"></script>
+{% endblock %}

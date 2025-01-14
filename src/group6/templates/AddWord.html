@@ -1,0 +1,30 @@
+{% extends 'Main.html' %}
+{% load static %}
+
+{% block header %}
+    <link rel="stylesheet" href="{% static 'group6/css/AddList.css' %}">
+{% endblock %}
+
+
+{% block content %}
+    <div class="login-page">
+        <div class="form">
+
+
+          <form class="login-form" method="post">
+              {% csrf_token %}
+              {{ form.as_p }}
+{#            <input type="text" placeholder="کلمه"/>#}
+{#            <input type="text" placeholder="توضیحات"/>#}
+{#            <button>افزودن به لیست</button><button>افزودن یل جعبه لایتنر</button><button>افزودن به تیک 8</button>#}
+            <input type="submit" value="ثبت کلمه">
+
+          </form>
+        </div>
+      </div>
+
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'group6/js/main.js' %}"></script>
+{% endblock %}
