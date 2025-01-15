@@ -8,6 +8,7 @@ class Words(models.Model):
     description = models.TextField()
     user_id = models.IntegerField()
     created_time = models.DateTimeField(auto_now_add=True)
+    know = models.BooleanField(default=False, blank=True, null=True, verbose_name="Know")
 
 
     def __str__(self):
@@ -57,31 +58,17 @@ class Tick8(models.Model):
         (8, "Stage 8"),
     ]
 
-    word = models.OneToOneField('Words', on_delete=models.CASCADE, related_name="tick8")
+    word = models.ForeignKey('Words', on_delete=models.CASCADE, related_name="tick8")
     user_id = models.IntegerField()
     current_stage = models.PositiveSmallIntegerField(choices=STAGE_CHOICES, default=1)
     next_review_date = models.DateField(blank=True, null=True)
+    remmembered = models.BooleanField(default=False, blank=True, null=True)
+    created_at = models.DateField(auto_now_add=True)
 
-    INTERVALS = [1, 2, 4, 7, 15, 30, 60, 120]  # روزهای فاصله بین هر مرحله
-
-    def save(self, *args, **kwargs):
-        # اگر next_review_date تنظیم نشده، مقدار اولیه بده
-        if not self.next_review_date:
-            self.next_review_date = date.today() + timedelta(days=self.INTERVALS[self.current_stage - 1])
-        super().save(*args, **kwargs)
-
-    def advance_stage(self):
-        """به مرحله بعد بروید و تاریخ مرور را به‌روزرسانی کنید."""
-        if self.current_stage < 8:
-            self.current_stage += 1
-            self.next_review_date = date.today() + timedelta(days=self.INTERVALS[self.current_stage - 1])
-            self.save()
-
-    def reset_stage(self):
-        """بازگشت به مرحله اول."""
-        self.current_stage = 1
-        self.next_review_date = date.today() + timedelta(days=self.INTERVALS[0])
-        self.save()
+    def is_clickable(self):
+        """Check if the word is clickable based on the current date and stage."""
+        days_elapsed = (date.today() - self.created_at).days
+        return days_elapsed >= (self.current_stage - 1)
 
     def __str__(self):
         return f"{self.word.word} - Stage {self.current_stage}"

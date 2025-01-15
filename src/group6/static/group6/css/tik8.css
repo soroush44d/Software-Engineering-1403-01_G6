@@ -1,0 +1,66 @@
+
+  @font-face {
+      font-family: 'ir';
+      src: url('Iranian Sans.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+  }
+  body {
+    background: #7bb4ea; /* fallback for old browsers */
+    background: rgb(138, 175, 234);
+    background: linear-gradient(90deg, rgba(141,194,111,1) 0%, rgba(118,184,82,1) 50%);
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: 'ir', sans-serif;
+      direction: rtl;
+  }
+
+  .day-box {
+    border: 2px solid #6c757d;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 15px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .day-title {
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 5px;
+    line-height: 30px;
+    text-align: center;
+    font-size: 14px;
+    color: white;
+  }
+
+  .circle.red {
+    background-color: #dc3545;
+  }
+
+  .circle.green {
+    background-color: #28a745;
+  }
+
+  .start-button {
+    display: block;
+    width: 100%;
+    margin-top: 15px;
+    font-weight: bold;
+  }
+.btn:hover{
+    background-color: rgb(104, 227, 110);
+    color: black;
+    transition: all ease 0.7s;
+    transform: scaleX(0.9)
+  }

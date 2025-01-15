@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="soroush@isia.lol:22 password (3)" remoteFilesAllowedToDisappearOnAutoupload="false">
+  <component name="PublishConfigData" autoUpload="Always" serverName="soroush@isia.lol:22 password (8)" remoteFilesAllowedToDisappearOnAutoupload="false">
     <serverData>
       <paths name="soroush@isia.lol:22 password">
         <serverdata>
@@ -20,6 +20,41 @@
         <serverdata>
           <mappings>
             <mapping deploy="/tmp/pycharm_project_168" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="soroush@isia.lol:22 password (4)">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/tmp/pycharm_project_new" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="soroush@isia.lol:22 password (5)">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/tmp/pycharm_project_907" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="soroush@isia.lol:22 password (6)">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/tmp/pycharm_project_296" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="soroush@isia.lol:22 password (7)">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/tmp/pycharm_project_438" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="soroush@isia.lol:22 password (8)">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/tmp/pycharm_project_385" local="$PROJECT_DIR$" />
           </mappings>
         </serverdata>
       </paths>
