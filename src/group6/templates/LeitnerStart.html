@@ -3,44 +3,60 @@
 
 {% block header %}
 <link rel="stylesheet" href="{% static 'group6/css/LeitnerStart.css' %}">
-
 {% endblock %}
 
 {% block content %}
 <div class="main">
     <div class="container py-4">
-    <h1 class="text-center mb-4">Practice Vocabulary</h1>
+        <h1 class="text-center mb-4">Practice Vocabulary</h1>
 
-    <!-- Word Display Box -->
-    <div class="word-box" id="wordBox">
-      Word
-    </div>
+        <!-- Word Display Box -->
+        <div class="word-box text-center" id="wordBox">
+            <strong>{{ word.word }}</strong>
+        </div>
 
-    <!-- Show Meaning Button -->
-    <div class="text-center mb-4">
-      <button class="btn btn-primary btn-lg" id="showMeaningButton">Show Meaning</button>
-    </div>
+        <!-- Meaning Display Box (Hidden by Default) -->
+        <div class="meaning-box text-center mt-3" id="meaningBox" style="display: none;">
+            <em>{{ word.description }}</em>
+        </div>
 
-    <!-- Remember/Forgot Buttons -->
-    <div class="btn-group">
-      <button class="btn btn-success btn-lg" id="rememberButton">Remember</button>
-      <button class="btn btn-danger btn-lg" id="forgotButton">Forgot</button>
+        <!-- Show Meaning Button -->
+        <div class="text-center mb-4">
+            <button class="btn btn-primary btn-lg" id="showMeaningButton">Show Meaning</button>
+        </div>
+
+        <!-- Remember/Forgot Buttons -->
+        <form method="get"  class="text-center" action="{% url 'group6:practicenext' box_number word.id %}">
+
+
+            <!-- Remember/Forgot Buttons -->
+            <button class="btn btn-success btn-lg mx-2" name="action" value="remember" type="submit">Remember</button>
+            <button class="btn btn-danger btn-lg mx-2" name="action" value="forgot" type="submit">Forgot</button>
+        </form>
     </div>
-  </div>
 </div>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const showMeaningButton = document.getElementById('showMeaningButton');
+        const meaningBox = document.getElementById('meaningBox');
 
+        // Show Meaning Button Logic
+        showMeaningButton.addEventListener('click', function () {
+            meaningBox.style.display = 'block'; // نمایش معنی کلمه
+        });
+
+        // Remember Button Logic
+        document.getElementById('rememberButton').addEventListener('click', function () {
+            alert('You marked this word as "Remembered".');
+            // اینجا می‌توانید با استفاده از AJAX پاسخ کاربر را به سرور ارسال کنید
+        });
+
+        // Forgot Button Logic
+        document.getElementById('forgotButton').addEventListener('click', function () {
+            alert('You marked this word as "Forgotten".');
+            // اینجا می‌توانید با استفاده از AJAX پاسخ کاربر را به سرور ارسال کنید
+        });
+    });
+</script>
 {% endblock %}
-
-
-
-
-
-
-
-
-
-
-
-
-

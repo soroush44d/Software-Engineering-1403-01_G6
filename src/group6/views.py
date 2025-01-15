@@ -9,7 +9,6 @@ from datetime import date, timedelta
 from django.db.models import Count
 
 
-
 class Home(View):
     form = WordForm
 
@@ -73,9 +72,6 @@ class AddWords(View):
                     user_id=user_id,
                 )
 
-
-
-
             messages.success(request, f"Word '{word}' added successfully!")
             return redirect('group6:home')
 
@@ -107,28 +103,117 @@ class ShowLeitner(View):
 
         return render(request, template, {'leitners': all_boxes})
 
-
-
     def post(self, request):
         pass
 
 
-class LeitnerReview(View):
-    def get(self, request,box):
+class PracticeLeitner(View):
+    def get(self, request, box, word_id=None):
         template = 'LeitnerStart.html'
         try:
             db = create_db_connection(DB_HOST, int(DB_PORT), DB_USER, DB_PASSWORD, DB_NAME)
+            user_username = request.user.username
+            user_id = get_user_id_by_username(db, user_username)
         except Exception as e:
             print(f"Error while connecting to the database: {e}")
-            raise
-
-        user_username = request.user.username
-        user_id = get_user_id_by_username(db, user_username)
-        if not user_id:
-            messages.error(request, "User ID not found.")
+            messages.error(request, "Database connection error.")
             return redirect('group6:home')
-        user_words = LeitnerBox.objects.filter(user_id=user_id, box_number = box)
-        return render(request, template, {'words':user_words})
 
-    def post(self, request):
-        pass
+        if 'red' in request.session:
+            print('first red')
+            if request.session['red'] == True:
+                print('second red')
+                action_result = request.GET.get('action')
+
+                processed_word = Words.objects.filter(id=word_id)
+                if not processed_word:
+                    print("Not here")
+                else:
+                    processed_word = Words.objects.get(id=word_id)
+                    related_leitner = LeitnerBox.objects.get(word__id=word_id)
+                    if action_result == 'remember':
+                        print(f'res for {processed_word} is remember')
+                        related_leitner.move_to_next_box()
+                        related_leitner.save()
+                    if action_result == 'forgot':
+                        print(f'res for {processed_word} is forget')
+                        related_leitner.move_to_previous_box()
+                        related_leitner.save()
+                messages.info(request, "مرور شما به پایان رسید :).")
+                del request.session['red']
+                if 'word_ids' in request.session:
+                    del request.session['word_ids']
+                return redirect('group6:home')
+
+        request.session['red'] = False
+        # Add ids to user session (store only the ids as a list)
+        if 'word_ids' not in request.session:
+            word_ids_to_review = list(
+                LeitnerBox.objects.filter(user_id=user_id, box_number=box)
+                .values_list('word__id', flat=True)
+            )
+            print(f"creating list for usr {word_ids_to_review}")
+            request.session['word_ids'] = word_ids_to_review
+            request.session['red']=False
+        else:
+            print(f'it has this {request.session['word_ids']}')
+            words = request.session['word_ids']
+            request.session['word_ids'] = words[1:]
+            request.session['red'] = False
+
+        # Process words
+        if  len(request.session['word_ids'])==1:
+            request.session['red'] = True
+
+
+        if not request.session['word_ids']:
+            del request.session['word_ids']
+            word_ids_to_review = list(
+                LeitnerBox.objects.filter(user_id=user_id, box_number=box)
+                .values_list('word__id', flat=True)
+            )
+            print(f"creating list for usr {word_ids_to_review}")
+            request.session['word_ids'] = word_ids_to_review
+
+        try:
+            word_id_to_review = request.session['word_ids'][0]
+        except (IndexError, KeyError):
+            messages.info(request, "هیچ کلمه‌ای برای مرور در این جعبه وجود ندارد.")
+            return redirect('group6:home')
+
+        print(word_id_to_review)
+        print(box)
+        print(user_id)
+        if Words.objects.filter(id=word_id_to_review).first():
+            word = Words.objects.get(id=word_id_to_review)
+        else:
+            print('its non')
+
+        # manage result
+        action_result = request.GET.get('action')
+
+        processed_word = Words.objects.filter(id=word_id)
+        if not processed_word:
+            print("Not here")
+        else:
+            processed_word = Words.objects.get(id=word_id)
+            related_leitner = LeitnerBox.objects.get(word__id=word_id)
+            if action_result == 'remember':
+                print(f'res for {processed_word} is remember')
+                related_leitner.move_to_next_box()
+                related_leitner.save()
+            if action_result == 'forgot':
+                print(f'res for {processed_word} is forget')
+                related_leitner.move_to_previous_box()
+                related_leitner.save()
+
+        #manage redirect
+        print(request.session['word_ids'])
+
+        return render(request, template, {'word': word, 'box_number': box})
+
+
+
+
+
+

@@ -34,11 +34,13 @@ class LeitnerBox(models.Model):
     def move_to_next_box(self):
         if self.box_number < 5:
             self.box_number += 1
+            print("+1 box")
         else:
             self.box_number = 5  # Already in the last box.
 
     def move_to_previous_box(self):
         if self.box_number > 1:
+            print('-1 box number')
             self.box_number -= 1
         else:
             self.box_number = 1
