@@ -27,28 +27,18 @@
 
             <div class="container my-5">
                 <div class="row g-3 text-center">
-                    <div class="col-md-6 col-xs-12">
-                        <a href="AddList.html" class="btn btn-outline-primary w-100 py-4 text-decoration-none page-link border">
-                            <i class="bi bi-plus-square fs-1"></i> <br>
-                            ایجاد لیست
-                        </a>
-                    </div>
+
                     <div class="col-md-6 col-xs-12">
                         <a href="{% url 'group6:addwords' %}" class="btn btn-outline-success w-100 py-4 text-decoration-none page-link border">
                             <i class="bi bi-plus-circle fs-1"></i> <br>
                             افزودن کلمه
                         </a>
                     </div>
+
                     <div class="col-md-6 col-xs-12">
-                        <a href="delete.html" class="btn btn-outline-danger w-100 py-4 text-decoration-none page-link border">
-                            <i class="bi bi-trash fs-1"></i> <br>
-                            حذف
-                        </a>
-                    </div>
-                    <div class="col-md-6 col-xs-12">
-                        <a href="search.html" class="btn btn-outline-info w-100 py-4 text-decoration-none page-link border">
-                            <i class="bi bi-gear fs-1"></i> <br>
-                            ویرایش
+                        <a href="{% url 'group6:showlist' %}" class="btn btn-outline-info w-100 py-4 text-decoration-none page-link border">
+                            <i class="bi bi-eye fs-1"></i> <br>
+                            مشاهده لیست ها و کلمات
                         </a>
                     </div>
                     <div class="col-md-6 col-xs-12">

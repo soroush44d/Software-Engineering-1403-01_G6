@@ -1,0 +1,9 @@
+.word-list {
+    display: none; /* Words hidden by default */
+}
+@font-face {
+    font-family: 'ir'; 
+    src: url('Iranian Sans.ttf') format('truetype'); 
+    font-weight: normal;
+    font-style: normal;
+}

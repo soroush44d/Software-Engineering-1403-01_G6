@@ -13,5 +13,7 @@ urlpatterns = [
   path('tick8/', views.Tick8View.as_view(), name='tick8view'),
   path('tickpractice/<int:user_id>/<int:stage>/', views.Tick8Practice.as_view(), name='tick8practice'),
   path('tickpractice/<int:user_id>/<int:stage>/<int:word_id>',views.Tick8Practice.as_view(), name='tick8practice'),
+  path('showlist/', views.ShowListView.as_view(), name='showlist'),
+  path('deleteword/<int:word_id>/', views.DeleteWordView.as_view(), name='delete_word'),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

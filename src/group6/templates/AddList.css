@@ -1,6 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
-
 .login-page {
   width: 360px;
   padding: 8% 0 0;
@@ -17,7 +16,7 @@
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 .form input {
-
+  
   outline: 0;
   background: #f2f2f2;
   width: 100%;
@@ -28,7 +27,7 @@
   font-size: 14px;
 }
 .form button {
-
+  
   text-transform: uppercase;
   outline: 0;
   background: #4CAF50;
@@ -42,7 +41,7 @@
   cursor: pointer;
 }
 .form button:hover,.form button:active,.form button:focus {
-  background: #156d1a;
+  background: #43A047;
 }
 .form .message {
   margin: 15px 0 0;
@@ -90,17 +89,18 @@
   color: #EF3B3A;
 }
 body {
-  background: #7bb4ea;
+  background: #7bb4ea; /* fallback for old browsers */
   background: rgb(138, 175, 234);
   background: linear-gradient(90deg, rgba(141,194,111,1) 0%, rgba(118,184,82,1) 50%);
+  font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  -moz-osx-font-smoothing: grayscale;      
   font-family: 'ir', sans-serif;
     direction: rtl;
 }
 @font-face {
-    font-family: 'ir';
-    src: url('Iranian Sans.ttf') format('truetype');
+    font-family: 'ir'; 
+    src: url('Iranian Sans.ttf') format('truetype'); 
     font-weight: normal;
     font-style: normal;
 }
@@ -113,21 +113,4 @@ body {
 
 
 
-
-.checkbox-group {
-  text-align: right;
-  margin: 15px 0;
-}
-
-.checkbox-group label {
-  display: block;
-  margin: 5px 0;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.checkbox-group input[type="checkbox"] {
-  margin-left: 10px;
-  transform: scale(1.2);
-  cursor: pointer;}
 

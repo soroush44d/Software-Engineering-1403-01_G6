@@ -364,3 +364,45 @@ class Tick8Practice(View):
         print(request.session['word_ids_t'])
         print("sending word:",word)
         return render(request, template, {'word': word, 'stage': stage,'user_id':user_id})
+
+
+class ShowListView(View):
+    def get(self,request):
+        template= 'LIst.html'
+        try:
+            db = create_db_connection(DB_HOST, int(DB_PORT), DB_USER, DB_PASSWORD, DB_NAME)
+        except Exception as e:
+            print(f"Error while connecting to the database: {e}")
+            raise
+
+        user_username = request.user.username
+        user_id = get_user_id_by_username(db, user_username)
+        if not user_id:
+            messages.error(request, "User ID not found.")
+
+        boxes = LeitnerBox.objects.filter(user_id=user_id)
+        tick8s = Tick8.objects.filter(user_id=user_id, current_stage=1)
+
+        words = Words.objects.filter(user_id=user_id)
+
+
+
+        return render(request, template, {'boxes': boxes, 'ticks':tick8s, 'words':words})
+
+
+
+
+
+class DeleteWordView(View):
+
+    def get(self, request, word_id):
+        db = create_db_connection(DB_HOST, int(DB_PORT), DB_USER, DB_PASSWORD, DB_NAME)
+        user_username = request.user.username
+        user_id = get_user_id_by_username(db, user_username)
+
+        word = Words.objects.get(id=word_id,user_id=user_id)
+        print(word)
+        word.delete()
+        messages.success(request, "کلمه با موفقیت حذف شد :)")
+        return redirect('group6:showlist')
+
