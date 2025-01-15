@@ -66,7 +66,6 @@ class Tick8(models.Model):
     created_at = models.DateField(auto_now_add=True)
 
     def is_clickable(self):
-        """Check if the word is clickable based on the current date and stage."""
         days_elapsed = (date.today() - self.created_at).days
         return days_elapsed >= (self.current_stage - 1)
 

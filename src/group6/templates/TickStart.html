@@ -3,36 +3,163 @@
 
 {% block header %}
 <link rel="stylesheet" href="{% static 'group6/css/LeitnerStart.css' %}">
+<style>
+    .practice-container {
+        min-height: 100vh;
+        padding: 3rem 1rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .practice-card {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        padding: 3rem 2rem;
+        max-width: 600px;
+        margin: 0 auto;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        backdrop-filter: blur(10px);
+    }
+
+    .main-title {
+        color: white;
+        font-size: 2.5rem;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 3rem;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .word-box {
+        background: white;
+        border-radius: 15px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        transition: all 0.3s ease;
+    }
+
+    .word-box strong {
+        font-size: 2rem;
+        color: #2d3748;
+        display: block;
+    }
+
+    .meaning-box {
+        background: rgba(102,126,234,0.1);
+        border-radius: 15px;
+        padding: 2rem;
+        margin: 1.5rem 0;
+        transition: all 0.3s ease;
+    }
+
+    .meaning-box em {
+        font-size: 1.2rem;
+        color: #4a5568;
+        display: block;
+        line-height: 1.6;
+    }
+
+    .show-meaning-btn {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border: none;
+        padding: 1rem 2.5rem;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        color: white;
+        margin: 1.5rem 0;
+        transition: all 0.3s ease;
+    }
+
+    .show-meaning-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(102,126,234,0.4);
+    }
+
+    .response-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        margin-top: 2rem;
+    }
+
+    .remember-btn {
+        background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+        border: none;
+        padding: 1rem 2.5rem;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        color: white;
+        transition: all 0.3s ease;
+    }
+
+    .forgot-btn {
+        background: linear-gradient(135deg, #f56565 0%, #c53030 100%);
+        border: none;
+        padding: 1rem 2.5rem;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        color: white;
+        transition: all 0.3s ease;
+    }
+
+    .remember-btn:hover, .forgot-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    @media (max-width: 768px) {
+        .practice-card {
+            padding: 2rem 1rem;
+        }
+
+        .main-title {
+            font-size: 2rem;
+        }
+
+        .word-box strong {
+            font-size: 1.8rem;
+        }
+
+        .meaning-box em {
+            font-size: 1.1rem;
+        }
+
+        .show-meaning-btn, .remember-btn, .forgot-btn {
+            padding: 0.8rem 2rem;
+            font-size: 1rem;
+        }
+    }
+</style>
 {% endblock %}
 
 {% block content %}
-<div class="main">
-    <div class="container py-4">
-        <h1 class="text-center mb-4">Practice Vocabulary</h1>
+<div class="practice-container">
+    <h1 class="main-title">Practice Vocabulary</h1>
 
+    <div class="practice-card">
         <!-- Word Display Box -->
-        <div class="word-box text-center" id="wordBox">
+        <div class="word-box text-center">
             <strong>{{ word.first.word }}</strong>
         </div>
 
         <!-- Meaning Display Box (Hidden by Default) -->
-        <div class="meaning-box text-center mt-3" id="meaningBox" style="display: none;">
+        <div class="meaning-box text-center" id="meaningBox" style="display: none;">
             <em>{{ word.first.description }}</em>
         </div>
 
         <!-- Show Meaning Button -->
-        <div class="text-center mb-4">
-            <button class="btn btn-primary btn-lg" id="showMeaningButton">Show Meaning</button>
+        <div class="text-center">
+            <button class="show-meaning-btn" id="showMeaningButton">Show Meaning</button>
         </div>
 
-            <form method="get" class="text-center"
-                  action="{% if word.first %}{% url 'group6:tick8practice' user_id=user_id stage=stage word_id=word.first.id %}{% else %}{% url 'group6:tick8practice' user_id=user_id stage=stage %}{% endif %}">
-                <button class="btn btn-success btn-lg mx-2" name="action" value="remember" type="submit">Remember</button>
-                <button class="btn btn-danger btn-lg mx-2" name="action" value="forgot" type="submit">Forgot</button>
-            </form>
-
-
-
+        <!-- Remember/Forgot Buttons -->
+        <form method="get" class="response-buttons" action="{% if word.first %}{% url 'group6:tick8practice' user_id=user_id stage=stage word_id=word.first.id %}{% else %}{% url 'group6:tick8practice' user_id=user_id stage=stage %}{% endif %}">
+            <button class="remember-btn" name="action" value="remember" type="submit">Remember</button>
+            <button class="forgot-btn" name="action" value="forgot" type="submit">Forgot</button>
+        </form>
     </div>
 </div>
 
@@ -43,19 +170,8 @@
 
         // Show Meaning Button Logic
         showMeaningButton.addEventListener('click', function () {
-            meaningBox.style.display = 'block'; // نمایش معنی کلمه
-        });
-
-        // Remember Button Logic
-        document.getElementById('rememberButton').addEventListener('click', function () {
-            alert('You marked this word as "Remembered".');
-            // اینجا می‌توانید با استفاده از AJAX پاسخ کاربر را به سرور ارسال کنید
-        });
-
-        // Forgot Button Logic
-        document.getElementById('forgotButton').addEventListener('click', function () {
-            alert('You marked this word as "Forgotten".');
-            // اینجا می‌توانید با استفاده از AJAX پاسخ کاربر را به سرور ارسال کنید
+            meaningBox.style.display = 'block';
+            this.style.display = 'none';
         });
     });
 </script>

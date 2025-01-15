@@ -50,7 +50,7 @@ class AddWords(View):
 
             if not user_id:
                 print('user not found')
-                messages.error(request, "User ID not found.")
+                messages.error(request, "لطفا ابتدا لاگین کنید.")
                 return redirect('group6:home')
 
             Words.objects.create(
@@ -69,14 +69,14 @@ class AddWords(View):
                 )
 
             if add_to_tick8:
-                for stage in range(1, 9):  # Stage 1 to Stage 8
+                for stage in range(1, 9):
                     Tick8.objects.create(
                         word=word_instance,
                         user_id=user_id,
                         current_stage=stage
                     )
 
-            messages.success(request, f"Word '{word}' added successfully!")
+            messages.success(request, f"کلمه ی {word} با موفقیت اضافه شد :) ")
             return redirect('group6:home')
 
         messages.error(request, "Invalid form submission.")
@@ -401,8 +401,9 @@ class DeleteWordView(View):
         user_id = get_user_id_by_username(db, user_username)
 
         word = Words.objects.get(id=word_id,user_id=user_id)
+        deleted_word = word
         print(word)
         word.delete()
-        messages.success(request, "کلمه با موفقیت حذف شد :)")
+        messages.success(request, f"{deleted_word} با موفقیت حذف شد :)")
         return redirect('group6:showlist')
 

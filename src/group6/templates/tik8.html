@@ -22,7 +22,6 @@
                             </div>
                         {% endfor %}
                     </div>
-                    <!-- دکمه تمرین برای کل استیج -->
                     {% if words|length > 0 and words.0.clickable %}
                         {% if words.0.id %}
                             <a href="{% url 'group6:tick8practice_with_word' user_id=user_id stage=stage word_id=words.0.id %}">

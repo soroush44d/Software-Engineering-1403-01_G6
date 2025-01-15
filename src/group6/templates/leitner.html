@@ -4,93 +4,195 @@
 {% block header %}
     <title>Leitner Box</title>
     <style>
-        body {
-            background-color: #f8f9fa;
+        .leitner-container {
+            min-height: 100vh;
+            padding: 3rem 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
-        .leitner-box {
-            border: 2px solid #6c757d;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 10px;
-            background-color: #ffffff;
+
+        .main-title {
+            color: white;
+            font-size: 2.5rem;
+            font-weight: 700;
             text-align: center;
-            width: 90%;
-            margin-left: auto;
-            margin-right: auto;
+            margin-bottom: 3rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
-        h4 {
-            font-weight: bold;
-            font-size: 16px;
-            margin-bottom: 10px;
+
+        .leitner-boxes-container {
+            max-width: 800px;
+            margin: 0 auto;
         }
-        p {
-            margin: 0;
+
+        .leitner-box {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            text-align: center;
         }
+
+        .leitner-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+        }
+
+        .box-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 1rem;
+        }
+
+        .word-count {
+            font-size: 1.1rem;
+            color: #4a5568;
+            background: rgba(102,126,234,0.1);
+            padding: 0.5rem 1.5rem;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
         .control-panel {
-            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .box-selector {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 500;
+            font-size: 1.1rem;
+            color: white;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .box-selector:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102,126,234,0.4);
+        }
+
+        .dropdown-menu {
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 0.5rem;
+        }
+
+        .dropdown-item {
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(102,126,234,0.1);
+        }
+
+        .start-button {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            border: none;
+            padding: 1rem 3rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: white;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .start-button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(72,187,120,0.4);
+        }
+
+        .start-button:disabled {
+            background: #a0aec0;
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2rem;
+            }
+
+            .leitner-box {
+                padding: 1.5rem;
+            }
+
+            .box-title {
+                font-size: 1.2rem;
+            }
+
+            .word-count {
+                font-size: 1rem;
+            }
         }
     </style>
 {% endblock %}
 
 {% block content %}
-    <div class="container py-4">
-        <h1 class="text-center mb-4">Leitner Box</h1>
-    
-        <!-- Leitner Boxes -->
-        {% for box_number,count in leitners.items %}
-        <div class="row">
-          <div class="col-12">
-            <div class="leitner-box">
-              <h4>جعبه {{ box_number }}</h4>
-              <p>تعداد لغات: <span id="box{{ box_number }}-count">{{ count }}</span></p>
-            </div>
+    <div class="leitner-container">
+        <h1 class="main-title">جعبه لایتنر</h1>
 
+        <div class="leitner-boxes-container">
+            {% for box_number,count in leitners.items %}
+            <div class="row">
+                <div class="col-12">
+                    <div class="leitner-box">
+                        <h4 class="box-title">جعبه {{ box_number }}</h4>
+                        <p class="word-count">تعداد لغات: <span id="box{{ box_number }}-count">{{ count }}</span></p>
+                    </div>
+                </div>
+            </div>
             {% endfor %}
 
-
-    
-       <!-- Control Panel -->
-        <div class="control-panel text-center mt-4">
-          <div class="dropdown mb-3">
-            <button
-              class="btn btn-secondary dropdown-toggle"
-              type="button"
-              id="boxSelector"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              انتخاب جعبه
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="boxSelector">
-              <li><a class="dropdown-item" href="{% url 'group6:practicefirst' box=1 %}" >جعبه ۱</a></li>
-              <li><a class="dropdown-item" href="{% url 'group6:practicefirst' box=2 %}" >جعبه۲</a></li>
-              <li><a class="dropdown-item" href="{% url 'group6:practicefirst' box=3 %}" >جعبه۳</a></li>
-              <li><a class="dropdown-item" href="{% url 'group6:practicefirst' box=4 %}" >جعبه۴</a></li>
-              <li><a class="dropdown-item" href="{% url 'group6:practicefirst' box=5 %}" >جعبه۵</a></li>
-            </ul>
-          </div>
-          <button class="btn btn-primary btn-lg" id="start-button" disabled onclick="startPractice()">شروع مرور</button>
+            <!-- Control Panel -->
+            <div class="control-panel text-center">
+                <div class="dropdown mb-3">
+                    <button
+                        class="box-selector dropdown-toggle"
+                        type="button"
+                        id="boxSelector"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                    >
+                        انتخاب جعبه
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="boxSelector">
+                        <li><a class="dropdown-item" href="{% url 'group6:practicefirst' box=1 %}">جعبه ۱</a></li>
+                        <li><a class="dropdown-item" href="{% url 'group6:practicefirst' box=2 %}">جعبه ۲</a></li>
+                        <li><a class="dropdown-item" href="{% url 'group6:practicefirst' box=3 %}">جعبه ۳</a></li>
+                        <li><a class="dropdown-item" href="{% url 'group6:practicefirst' box=4 %}">جعبه ۴</a></li>
+                        <li><a class="dropdown-item" href="{% url 'group6:practicefirst' box=5 %}">جعبه ۵</a></li>
+                    </ul>
+                </div>
+                <button class="start-button" id="start-button" disabled onclick="startPractice()">شروع مرور</button>
+            </div>
         </div>
     </div>
-
 {% endblock %}
 
 {% block js %}
-    <!-- JavaScript -->
-
     <script>
         let selectedBox = null;
 
-        // Function to set the selected box
         function selectBox(event, boxNumber) {
-            event.preventDefault();  // جلوگیری از رفتن به لینک
-
+            event.preventDefault();
             selectedBox = boxNumber;
-            document.getElementById("start-button").disabled = false; // Enable the start button
+            document.getElementById("start-button").disabled = false;
             alert(`جعبه ${boxNumber} انتخاب شد`);
         }
 
-        // Function to start practice
         function startPractice() {
             if (selectedBox) {
                 window.location.href = `practice.html?box=${selectedBox}`;
@@ -99,6 +201,4 @@
     </script>
 
     <script src="{% static 'group6/js/bootstrap.bundle.min.js' %}"></script>
-
-
 {% endblock %}
